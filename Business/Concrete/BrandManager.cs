@@ -18,11 +18,13 @@ namespace Business.Concrete
         }
         public void Add(Brand brand)
         {
+            Console.WriteLine("Brand added successfully");
             _brandDal.Add(brand);
         }
 
         public void Delete(Brand brand)
         {
+            Console.WriteLine("Brand deleted successfully");
             _brandDal.Delete(brand);
         }
 
@@ -38,6 +40,7 @@ namespace Business.Concrete
 
         public void Update(Brand brand)
         {
+            Console.WriteLine("Brand updated successfully");
             _brandDal.Update(brand);
         }
     }

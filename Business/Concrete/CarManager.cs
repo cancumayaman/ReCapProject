@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entity.Concrete;
+using Entity.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,7 +33,7 @@ namespace Business.Concrete
 
         public void Delete(Car car)
         {
-
+            Console.WriteLine("Car deleted successfully");
             _iCarDal.Delete(car);
 
         }
@@ -46,6 +47,11 @@ namespace Business.Concrete
         public Car GetByCarId(int id)
         {
           return  _iCarDal.Get(p => p.Id == id);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _iCarDal.GetCarDetails();
         }
 
         public List<Car> GetCarsByBrandId(int brandId)

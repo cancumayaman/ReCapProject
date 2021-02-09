@@ -17,11 +17,13 @@ namespace Business.Concrete
         }
         public void Add(Color color)
         {
+            Console.WriteLine("Color added successfully");
             _colorDal.Add(color);
         }
 
         public void Delete(Color color)
         {
+            Console.WriteLine("Color deleted successfully");
             _colorDal.Delete(color);
         }
 
@@ -37,6 +39,7 @@ namespace Business.Concrete
 
         public void Update(Color color)
         {
+            Console.WriteLine("Color updated successfully");
             _colorDal.Update(color);
         }
     }
