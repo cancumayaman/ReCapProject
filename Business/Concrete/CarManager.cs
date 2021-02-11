@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entity.Concrete;
@@ -18,64 +20,63 @@ namespace Business.Concrete
             _iCarDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.Description.Length >= 2 && car.DailyPrice > 20)
             {
                 _iCarDal.Add(car);
-                Console.WriteLine("Car added successfully");
+                return new SuccessResult(Messages.ProductAdded);
             }
-            else
-            {
-                Console.WriteLine("Please control the car description or car daily price,description must be at least 2 character and daily price must be more than 20");
-            }
-        }
-
-        public void Delete(Car car)
-        {
-            Console.WriteLine("Car deleted successfully");
-            _iCarDal.Delete(car);
-
-        }
-
-        public List<Car> GetAll()
-        {
-            return _iCarDal.GetAll();
+            return new ErrorResult(Messages.ProductNameInvalid);
             
         }
 
-        public Car GetByCarId(int id)
+        public IResult Delete(Car car)
         {
-          return  _iCarDal.Get(p => p.Id == id);
+            
+            _iCarDal.Delete(car);
+            return new SuccessResult();
+
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _iCarDal.GetCarDetails();
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(),Messages.CarsListed);
+            
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<Car> GetByCarId(int id)
         {
-            return _iCarDal.GetAll(p => p.BrandId == brandId);
+          return new SuccessDataResult<Car>(_iCarDal.Get(p => p.Id == id));
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _iCarDal.GetAll(p => p.ColorId == colorId);
+            return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails());
         }
 
-        public void Update(Car car)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(p => p.BrandId == brandId));
+        }
+
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(p => p.ColorId == colorId));
+        }
+
+        public IResult Update(Car car)
         {
             if (car.Description.Length >= 2 && car.DailyPrice > 20)
             {
                 _iCarDal.Update(car);
-                Console.WriteLine("Car updated successfully");
+                return new SuccessResult();
             }
-            else
-            {
-                Console.WriteLine("Please control the car description or car daily price,description must be at least 2 character and daily price must be more than 20");
-
-            }
+            return new ErrorResult();
                
         }
     }
