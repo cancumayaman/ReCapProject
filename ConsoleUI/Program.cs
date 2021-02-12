@@ -10,12 +10,12 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //ColorOperations();
-            //BrandOperations();
+            ColorOperations();
+            BrandOperations();
             //CarOperations();
             //UserOperations();
             //CustomerOperations();
-            RentalOperations();
+            //RentalOperations();
 
         }
 
@@ -45,7 +45,11 @@ namespace ConsoleUI
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            //colorManager.Add(new Color { Name = "Red" });
+            var addresult=colorManager.Add(new Color { Name = "White" });
+            if (addresult.Success==false)
+            {
+                Console.WriteLine(addresult.Message);
+            }
             var result = colorManager.GetAll();
             if (result.Success)
             {
@@ -65,7 +69,11 @@ namespace ConsoleUI
         private static void BrandOperations()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            // brandManager.Add(new Brand { Name = "BMW" });
+            var addresult=brandManager.Add(new Brand { Name = "Renault" });
+            if (addresult.Success == false)
+            {
+                Console.WriteLine(addresult.Message);
+            }
             var result = brandManager.GetAll();
             if (result.Success)
             {

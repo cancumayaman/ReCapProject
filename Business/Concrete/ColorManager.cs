@@ -18,7 +18,11 @@ namespace Business.Concrete
         }
         public IResult Add(Color color)
         {
-            
+            var result = _colorDal.Get(p => p.Name == color.Name);
+            if (result != null)
+            {
+                return new ErrorResult("This color already added try enter another color");
+            }
             _colorDal.Add(color);
             return new  SuccessResult();
         }

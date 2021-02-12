@@ -19,7 +19,11 @@ namespace Business.Concrete
         }
         public IResult Add(Brand brand)
         {
-            
+            var result = _brandDal.Get(p => p.Name == brand.Name);
+            if (result != null)
+            {
+                return new ErrorResult("This brand already added try enter another brand");
+            }
             _brandDal.Add(brand);
             return new SuccessResult();
         }
