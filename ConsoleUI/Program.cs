@@ -10,11 +10,35 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            
-           ColorOperations();
-           BrandOperations();
-           CarOperations();
+            //ColorOperations();
+            //BrandOperations();
+            //CarOperations();
+            //UserOperations();
+            //CustomerOperations();
+            RentalOperations();
 
+        }
+
+        private static void RentalOperations()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+           var result= rentalManager.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = new DateTime(2021, 2, 12), ReturnDate = null });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserOperations()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            
+           var result= userManager.Add(new User {  FirstName = "Ceren", LastName = "Yaman", Email = "ceren@gmail.com", Password = "cancuma" });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CustomerOperations()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Add(new Customer {  CompanyName = "Yamanlar", UserId = 2 });
+            Console.WriteLine(result.Message);
         }
 
         private static void ColorOperations()
