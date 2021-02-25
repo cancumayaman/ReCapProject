@@ -16,7 +16,7 @@ namespace ConsoleUI
             //UserOperations();
             //CustomerOperations();
             //RentalOperations();
-            CarImagesManager carImagesManager = new CarImagesManager(new EfCarImagesDal(),new CarManager(new EfCarDal()));
+            CarImagesManager carImagesManager = new CarImagesManager(new EfCarImagesDal());
             carImagesManager.Add(new CarImages { CarId = 1, ImagePath = @"D:\Yeni klasör (6)\Desktop\me.jpg", Date = DateTime.Now });
 
 

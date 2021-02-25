@@ -14,11 +14,11 @@ namespace Business.Concrete
     public class CarImagesManager : ICarImagesService
     {
         ICarImagesDal _carImagesDal;
-        ICarService _carService;
-        public CarImagesManager(ICarImagesDal carImagesDal, ICarService carService)
+        
+        public CarImagesManager(ICarImagesDal carImagesDal)
         {
             _carImagesDal = carImagesDal;
-            _carService = carService;
+     
         }
         public IResult Add(CarImages carImages)
         {
