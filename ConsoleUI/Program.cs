@@ -10,12 +10,15 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ColorOperations();
-            BrandOperations();
+           // ColorOperations();
+           // BrandOperations();
             //CarOperations();
             //UserOperations();
             //CustomerOperations();
             //RentalOperations();
+            CarImagesManager carImagesManager = new CarImagesManager(new EfCarImagesDal(),new CarManager(new EfCarDal()));
+            carImagesManager.Add(new CarImages { CarId = 1, ImagePath = @"D:\Yeni klasör (6)\Desktop\me.jpg", Date = DateTime.Now });
+
 
         }
 
