@@ -33,8 +33,8 @@ namespace ConsoleUI
         {
             UserManager userManager = new UserManager(new EfUserDal());
             
-           var result= userManager.Add(new User {  FirstName = "Ceren", LastName = "Yaman", Email = "ceren@gmail.com", Password = "cancuma" });
-            Console.WriteLine(result.Message);
+           //var result= userManager.Add(new User {  FirstName = "Ceren", LastName = "Yaman", Email = "ceren@gmail.com", Password = "cancuma" });
+           // Console.WriteLine(result.Message);
         }
 
         private static void CustomerOperations()
