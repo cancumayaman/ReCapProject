@@ -18,7 +18,7 @@ namespace Core.Utilities.FileHelper
                 if (file.Length > 0)
                     using (var stream = new FileStream(sourcepath, FileMode.Create))
                         file.CopyTo(stream);
-
+                //File.Move(sourceFile, destinationFile);  
                 File.Move(sourcepath, result.newPath);
             }
             catch (Exception exception)
