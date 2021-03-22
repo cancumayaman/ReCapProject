@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
@@ -23,7 +24,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            
+            var result = BusinessRules.Run(WillLeasedCarAvailable(rental.CarId));
+            if (result != null)
+            {
+                return result;
+            }
             _rentalDal.Add(rental);
             return new SuccessResult("Car is rented successfully");
         }
@@ -53,6 +58,13 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
             return new SuccessResult("Rental deleted");
+        }
+        private IResult WillLeasedCarAvailable(int carId)
+        {
+            if (_rentalDal.Get(p => p.CarId == carId && p.ReturnDate == null) != null)
+                return new ErrorResult("This car has other customer");
+            else
+                return new SuccessResult();
         }
     }
 }
