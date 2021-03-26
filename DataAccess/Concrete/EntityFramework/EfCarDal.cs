@@ -26,7 +26,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.ColorId equals clr.Id
                              join ci in context.CarImages
                              on c.Id equals ci.CarId
-                             select new CarDetailDto { Id=c.Id, CarName = c.Name, BrandName = b.Name, ColorName = clr.Name, DailyPrice = c.DailyPrice,ImagePath=ci.ImagePath };
+                             select new CarDetailDto { Id=c.Id, CarName = c.Name, BrandName = b.Name, ColorName = clr.Name, DailyPrice = c.DailyPrice,ImagePath=ci.ImagePath,Description=c.Description };
                 return result.ToList();
             }
             
@@ -53,9 +53,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = b.Name,
                                  ColorName = co.Name,
                                  DailyPrice = c.DailyPrice,
-                                 ImagePath = ci.ImagePath
-                                 
-                                 
+                                 ImagePath = ci.ImagePath,
+                                 Description = c.Description
+
                              };
                 return result.ToList();
             }
@@ -79,8 +79,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = b.Name,
                                  ColorName = co.Name,
                                  DailyPrice = c.DailyPrice,
-                                 ImagePath = ci.ImagePath
-
+                                 ImagePath = ci.ImagePath,
+                                 Description = c.Description
                              };
                 return result.ToList();
             }

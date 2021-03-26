@@ -15,12 +15,13 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(p => p.DailyPrice).NotEmpty();
             RuleFor(p => p.DailyPrice).GreaterThan(0);
             RuleFor(p => p.DailyPrice).GreaterThanOrEqualTo(10).When(p => p.BrandId == 1);
-            RuleFor(p => p.Name).Must(StartWithA).WithMessage("Cars must be start A char");
+           
         }
 
-        private bool StartWithA(string arg)
+       /* private bool StartWithA(string arg)
         {
             return arg.StartsWith("A");
         }
+       */
     }
 }
