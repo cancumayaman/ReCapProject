@@ -29,11 +29,11 @@ namespace Business.Concrete
         {
             _iCarDal = carDal;
         }
-       // [SecuredOperation("car.add,admin,car.list")]
+       [SecuredOperation("car.add,admin,car.list")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
-        {
-          
+        { 
+             
                 _iCarDal.Add(car);
                 return new SuccessResult(Messages.CarAdded);
          
