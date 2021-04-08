@@ -3,11 +3,13 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
-
+using Entity.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -54,10 +56,34 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(p => p.Id == id));
         }
 
-        public IResult Update(User user)
+        
+
+        public IResult Update(UserForRegisterDto user)
         {
-            _userDal.Update(user);
+            var id = _userDal.Get(p => p.Email == user.Email).Id;
+            byte[] passwordHash, passwordSalt;
+            
+            
+            HashingHelper.CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
+            var userInfo = new User
+            {
+                Id = id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userDal.Update(userInfo);
             return new SuccessResult(user.FirstName + " " + user.LastName + " updated successfully");
         }
+
+       public IDataResult<UserInfo> GetUserByMail(string mail)
+        {
+            return new SuccessDataResult<UserInfo>(_userDal.GetUserInfo(mail));
+        }
+
+       
     }
 }

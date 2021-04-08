@@ -1,7 +1,5 @@
 ﻿using Business.Abstract;
-using Core.Entities.Concrete;
 using Entity.Concrete;
-using Entity.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,49 +11,37 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class CreditCardsController : ControllerBase
     {
-        IUserService _userService;
-        public UsersController(IUserService userService)
+        ICreditCardService _creditCardService;
+        public CreditCardsController(ICreditCardService creditCardService)
         {
-            _userService = userService;
+            _creditCardService = creditCardService;
         }
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _userService.GetAllUsers();
+            var result = _creditCardService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("getbyuserid")]
-        public IActionResult GetByUserId(int id)
+        [HttpGet("getbycardid")]
+        public IActionResult GetByCardId(string cardNumber)
         {
-            var result = _userService.GetUserById(id);
+            var result = _creditCardService.GetByCardId(cardNumber);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("getbymail")]
-        public IActionResult GetByMail(string mail)
-        {
-            var result = _userService.GetUserByMail(mail);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-       
-
         [HttpPost("add")]
-        public IActionResult Add(User user)
+        public IActionResult Add(CreditCard creditCard)
         {
-            var result = _userService.Add(user);
+            var result = _creditCardService.Add(creditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -63,9 +49,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(User user)
+        public IActionResult Delete(CreditCard creditCard)
         {
-            var result = _userService.Delete(user);
+            var result = _creditCardService.Delete(creditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -73,16 +59,14 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(UserForRegisterDto user)
+        public IActionResult Update(CreditCard creditCard)
         {
-            var result = _userService.Update(user);
+            var result = _creditCardService.Update(creditCard);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-
     }
 }

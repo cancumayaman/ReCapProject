@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Entity.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -24,5 +25,17 @@ namespace DataAccess.Concrete.EntityFramework
 
             }
         }
+
+        public UserInfo GetUserInfo(string mail)
+        {
+            using(var context=new ReCapProjectContext())
+            {
+                var result = from user in context.Users
+                             where user.Email == mail
+                             select new UserInfo { FirstName = user.FirstName, LastName = user.LastName };
+                return result.SingleOrDefault();
+            }
+        }
+       
     }
 }

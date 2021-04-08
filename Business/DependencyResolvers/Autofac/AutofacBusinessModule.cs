@@ -47,6 +47,11 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<PaymentManager>().As<IPaymentService>();
             builder.RegisterType<EfPaymentDal>().As<IPaymentDal>();
 
+            builder.RegisterType<FindeksManager>().As<IFindeksService>();
+            builder.RegisterType<EfFindeksDal>().As<IFindeksDal>();
+
+            builder.RegisterType<CreditCardManager>().As<ICreditCardService>();
+            builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>();
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
